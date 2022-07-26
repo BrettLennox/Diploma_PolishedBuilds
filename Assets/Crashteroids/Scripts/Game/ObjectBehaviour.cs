@@ -19,8 +19,29 @@ public class ObjectBehaviour : MonoBehaviour
         this.transform.position += (Vector3.down * _scrollSpeed) * Time.deltaTime;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    public void DestroyObject(GameObject obj)
     {
-        //var
+        //play sfx
+        //display particlefx/animation
+        Destroy(obj);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+
+        switch (other.tag)
+        {
+            case "Player":
+                Debug.Log("PLAYER");
+                //kill player
+                break;
+            case "Laser":
+                Debug.Log("LASER");
+                //increment player score
+                //destroy object
+                DestroyObject(other.gameObject);
+                DestroyObject(this.gameObject);
+                break;
+        }
     }
 }

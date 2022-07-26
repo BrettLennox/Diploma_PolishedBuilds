@@ -17,14 +17,13 @@ public class DuckMovement : MonoBehaviour
     {
         charController = GetComponent<CharacterController>();
     }
+
     // Update is called once per frame
     void Update()
     {
         _shotTimer += Time.deltaTime;
-        
-        moveDir = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
-        moveDir *= speed;
 
+        CalculateMovement();
         Move(moveDir);
 
         if (Input.GetKey(KeyCode.Space) && _shotTimer >= _timeBetweenShots)
@@ -33,6 +32,13 @@ public class DuckMovement : MonoBehaviour
             SpawnLaser();
         }
     }
+
+    private void CalculateMovement()
+    {
+        moveDir = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
+        moveDir *= speed;
+    }
+
     public void Move(Vector3 dir)
     {
         charController.Move(dir * Time.deltaTime);
