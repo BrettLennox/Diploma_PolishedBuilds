@@ -8,6 +8,7 @@ using Vector3 = UnityEngine.Vector3;
 public class ObjectBehaviour : MonoBehaviour
 {
     [SerializeField] private float _scrollSpeed = 3f;
+    [SerializeField] private int _deathValue;
 
     private void Update()
     {
@@ -38,6 +39,8 @@ public class ObjectBehaviour : MonoBehaviour
             case "Laser":
                 Debug.Log("LASER");
                 //increment player score
+                GameManager.IncreaseScore(_deathValue);
+                Debug.Log(GameManager.score);
                 //destroy object
                 DestroyObject(other.gameObject);
                 DestroyObject(this.gameObject);
