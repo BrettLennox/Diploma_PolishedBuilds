@@ -4,27 +4,28 @@ using UnityEngine;
 
 public class GameHandler : MonoBehaviour
 {
-    [SerializeField] private DuckMovement playerPrefab;
+    [SerializeField] private PlayerMovement playerPrefab;
     [SerializeField] private ObjectBehaviour objectPrefab;
     [SerializeField] private LaserBehaviour laserPrefab;
     [SerializeField] private ObjectSpawnBehaviour objectSpawnPrefab;
-    public DuckMovement GetPlayer()
+
+    public PlayerMovement GetPlayer() //returns and instance of the playerPrefab
     {
-        return Instantiate<DuckMovement>(playerPrefab);
+        return Instantiate<PlayerMovement>(playerPrefab);
     }
 
-    public ObjectBehaviour GetObject()
+    public ObjectBehaviour GetObject() //returns and instance of the objectPrefab
     {
-        return Instantiate<ObjectBehaviour>(objectPrefab);
+        return Instantiate<ObjectBehaviour>(objectPrefab); 
     }
 
-    public LaserBehaviour GetLaser()
+    public LaserBehaviour GetLaser() //returns and instance of the laserPrefab
     {
-        return Instantiate<LaserBehaviour>(laserPrefab);
+        return Instantiate<LaserBehaviour>(laserPrefab); 
     }
 
-    public ObjectSpawnBehaviour GetObjectSpawn()
+    public ObjectSpawnBehaviour GetObjectSpawn() //returns and instance of the objectSpawnPrefab
     {
-        return Instantiate<ObjectSpawnBehaviour>(objectSpawnPrefab);
+        return Instantiate<ObjectSpawnBehaviour>(objectSpawnPrefab); 
     }
 }

@@ -110,3 +110,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scrollSpeed: 3
   _deathValue: 5
+  _gm: {fileID: 7888847864920654176, guid: 760327b164ea75446aed1ae818e14f06, type: 3}

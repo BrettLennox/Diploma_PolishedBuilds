@@ -10,14 +10,18 @@ public class ObjectSpawnBehaviour : MonoBehaviour
     [SerializeField] private Vector2 _xBounds;
     [SerializeField] private float _spawnTimer = Mathf.Infinity;
     [SerializeField] private float _timeBetweenSpawn = 2f;
+    public bool shouldSpawn = true;
 
     private void Update()
     {
-        _spawnTimer += Time.deltaTime;
-        if (_spawnTimer >= _timeBetweenSpawn)
+        if (shouldSpawn)
         {
-            _spawnTimer = 0f;
-            SpawnObject();
+            _spawnTimer += Time.deltaTime;
+            if (_spawnTimer >= _timeBetweenSpawn)
+            {
+                _spawnTimer = 0f;
+                SpawnObject();
+            }
         }
     }
 
@@ -25,6 +29,7 @@ public class ObjectSpawnBehaviour : MonoBehaviour
     {
         Vector2 randomSpawnLocation = new Vector2(Random.Range(_xBounds.x, _xBounds.y), 9f);
         var asteroid = Instantiate(_asteroidPrefab, randomSpawnLocation, Quaternion.identity, this.transform);
+        GameManager.instance.spawnedObjectsList.Add(asteroid);
         return asteroid;
     }
 }

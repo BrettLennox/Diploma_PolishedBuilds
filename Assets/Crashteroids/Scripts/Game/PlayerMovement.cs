@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DuckMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private GameObject _laserPrefab;
     [SerializeField] private Transform _laserSpawnPoint;
@@ -48,5 +48,10 @@ public class DuckMovement : MonoBehaviour
     {
         var laser = Instantiate(_laserPrefab, _laserSpawnPoint.position, Quaternion.identity, _laserParent);
         return laser;
+    }
+
+    public void KillPlayer()
+    {
+        Destroy(this.gameObject);
     }
 }

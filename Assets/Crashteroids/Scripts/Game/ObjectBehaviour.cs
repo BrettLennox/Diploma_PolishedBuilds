@@ -8,13 +8,7 @@ public class ObjectBehaviour : MonoBehaviour
     [SerializeField] private float _scrollSpeed = 3f;
     [SerializeField] private int _deathValue;
     [Range(0, 2)] private float _sizeScale, _speedScale, _rotateDir;
-
-    private GameManager _gm;
-
-    private void Awake()
-    {
-        _gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-    }
+    public bool shouldMove = true;
 
     private void OnEnable()
     {
@@ -39,20 +33,23 @@ public class ObjectBehaviour : MonoBehaviour
                 r = UnityEngine.Random.Range(10f, 30f);
                 _rotateDir = r;
                 break;
-            case 1: 
+            case 1:
                 r = UnityEngine.Random.Range(-10f, -30f);
                 _rotateDir = r;
                 break;
         }
-        
+
         _sizeScale = t;
         _speedScale = t;
     }
 
     private void Update()
     {
-        ObjectScrollDown();
-        ObjectRotation();
+        if (shouldMove)
+        {
+            ObjectScrollDown();
+            ObjectRotation();
+        }
     }
 
     public void ObjectScrollDown() //updates the objects position to scroll downwards multiplied by the scrollSpeed value
@@ -62,13 +59,14 @@ public class ObjectBehaviour : MonoBehaviour
 
     public void ObjectRotation() //rotates 
     {
-        transform.Rotate(0,0,_rotateDir * Time.deltaTime, Space.Self);
+        transform.Rotate(0, 0, _rotateDir * Time.deltaTime, Space.Self);
     }
 
     public void DestroyObject(GameObject obj) //destroys the passed in GameObject
     {
         //play sfx
         //display particlefx/animation
+        GameManager.instance.spawnedObjectsList.Remove(this.gameObject);
         Destroy(obj);
     }
 
@@ -79,9 +77,12 @@ public class ObjectBehaviour : MonoBehaviour
             case "Player": //if Player
                 Debug.Log("PLAYER");
                 //kill player
+                Destroy(other.gameObject);
+                GameManager.instance.EndGame();
                 break;
             case "Laser": //if Laser
-                _gm.IncreaseScore(_deathValue); //perform IncreaseScore function
+                GameObject.Find("GameManager").GetComponent<GameManager>().IncreaseScore(_deathValue);
+                //_gm.IncreaseScore(_deathValue); //perform IncreaseScore function
                 DestroyObject(other.gameObject); //perform DestroyObject function with other.gameObject passed in
                 DestroyObject(this.gameObject); //perform DestroyObject function with this.gameObject passed in
                 break;
