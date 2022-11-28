@@ -12,13 +12,13 @@ public class ObjectBehaviour : MonoBehaviour
 
     private void OnEnable()
     {
-        CreateScaleData();
-        UpdateScaledData();
+        CreateScaleData(); //runs CreateScaleData
+        UpdateScaledData(); //runs UpdateScaleData
     }
 
     private void UpdateScaledData() //adjusts scrollSpeed and localScale based on the scaledata randomly generated
     {
-        _scrollSpeed *= _speedScale;
+        _scrollSpeed *= _speedScale; 
         transform.localScale *= _sizeScale;
     }
 
@@ -45,8 +45,9 @@ public class ObjectBehaviour : MonoBehaviour
 
     private void Update()
     {
-        if (shouldMove)
+        if (shouldMove) //if shouldMove is true
         {
+            //runs ObjectScrollDown and ObjectRotation functions
             ObjectScrollDown();
             ObjectRotation();
         }
@@ -57,15 +58,13 @@ public class ObjectBehaviour : MonoBehaviour
         this.transform.position += (UnityEngine.Vector3.down * _scrollSpeed) * Time.deltaTime;
     }
 
-    public void ObjectRotation() //rotates 
+    public void ObjectRotation() //rotates the object 
     {
         transform.Rotate(0, 0, _rotateDir * Time.deltaTime, Space.Self);
     }
 
     public void DestroyObject(GameObject obj) //destroys the passed in GameObject
     {
-        //play sfx
-        //display particlefx/animation
         GameManager.instance.spawnedObjectsList.Remove(this.gameObject);
         Destroy(obj);
     }
@@ -75,14 +74,22 @@ public class ObjectBehaviour : MonoBehaviour
         switch (other.tag)
         {
             case "Player": //if Player
-                Debug.Log("PLAYER");
-                //kill player
+                //destroy player gameObject
                 Destroy(other.gameObject);
+                //runs GameManager EndGame function
                 GameManager.instance.EndGame();
                 break;
             case "Laser": //if Laser
+                //runs GameManager IncreaseScore function
                 GameObject.Find("GameManager").GetComponent<GameManager>().IncreaseScore(_deathValue);
-                //_gm.IncreaseScore(_deathValue); //perform IncreaseScore function
+                for(int i = 0; i < GameManager.instance.spawnedLaserList.Count; i++) //increments through GameManager spawnedLaserList
+                {
+                    if(GameManager.instance.spawnedLaserList[i] == other.gameObject) //if GameManager spawnedLaserList at index i matches this gameObject
+                    {
+                        //remove from spawnedLaserList at index i
+                        GameManager.instance.spawnedLaserList.RemoveAt(i);
+                    }
+                }
                 DestroyObject(other.gameObject); //perform DestroyObject function with other.gameObject passed in
                 DestroyObject(this.gameObject); //perform DestroyObject function with this.gameObject passed in
                 break;
