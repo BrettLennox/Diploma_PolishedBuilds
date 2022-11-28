@@ -40,7 +40,17 @@ public class PlayerMovement : MonoBehaviour
             //runs SpawnLaser function
             SpawnLaser();
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#endif
+            GameManager.instance.Quit();
+        }
     }
+
+    
 
     private void CalculateMovement()
     {

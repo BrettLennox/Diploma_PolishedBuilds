@@ -91,4 +91,9 @@ public class GameManager : MonoBehaviour
         //runs UpdateScoreText function
         UpdateScoreText();
     }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
 }
