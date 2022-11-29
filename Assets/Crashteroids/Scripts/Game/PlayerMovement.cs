@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
         //runs Move function with parsed in moveDir variable
         Move(moveDir);
 
-        //if user inputs Space key AND shotTimer is greater than timeBetweenShots
+        //if user inputs key AND shotTimer is greater than timeBetweenShots
         if (Input.GetButton("P1 R1") && _shotTimer >= _timeBetweenShots)
         {
             //resets shotTimer to 0
