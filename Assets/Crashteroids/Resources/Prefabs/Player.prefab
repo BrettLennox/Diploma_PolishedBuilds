@@ -146,7 +146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _laserPrefab: {fileID: 7305741440856664038, guid: 9862731a02e66b04ab4e833ce7ddc0f2, type: 3}
   _laserSpawnPoint: {fileID: 1488781130066078139}
-  _laserParent: {fileID: 0}
+  _laserParent: {fileID: 7291924703863138060, guid: 2f1fa543df719c8488742f21c69e0785, type: 3}
   _shotTimer: Infinity
   _timeBetweenShots: 0.6
   speed: 5

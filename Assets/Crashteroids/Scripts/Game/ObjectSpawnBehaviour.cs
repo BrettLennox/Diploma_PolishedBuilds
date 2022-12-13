@@ -34,7 +34,9 @@ public class ObjectSpawnBehaviour : MonoBehaviour
         //instantiates asteroidPrefab at randomSpawnLocation, parented to this gameObjects transform
         var asteroid = Instantiate(_asteroidPrefab, randomSpawnLocation, Quaternion.identity, this.transform);
         //adds this asteroid to the GameManager spawnedObjectList
+#if !UNITY_INCLUDE_TESTS
         GameManager.instance.spawnedObjectsList.Add(asteroid);
+#endif
         //returns this asteroid to the function
         return asteroid;
     }

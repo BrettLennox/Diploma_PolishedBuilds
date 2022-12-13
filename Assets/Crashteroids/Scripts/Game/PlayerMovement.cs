@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private GameObject _laserPrefab;
     [SerializeField] private Transform _laserSpawnPoint;
-    [SerializeField] private Transform _laserParent;
+    //[SerializeField] private Transform _laserParent;
     [SerializeField] private float _shotTimer = Mathf.Infinity;
     [SerializeField] private float _timeBetweenShots = 0.6f;
     Vector3 moveDir;
@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
+        //_laserParent = GameObject.Find("Lasers").transform;
         //if charController is null
         //sets the charController to CharacterController attached to GameObject
         charController ??= GetComponent<CharacterController>();
@@ -70,9 +71,11 @@ public class PlayerMovement : MonoBehaviour
     public GameObject SpawnLaser()
     {
         //instantiates LaserPrefab at the laserSpawnPoint position, parented to Lasers GameObject in scene
-        var laser = Instantiate(_laserPrefab, _laserSpawnPoint.position, Quaternion.identity, GameObject.Find("Lasers").transform);
+        var laser = Instantiate(_laserPrefab, _laserSpawnPoint.position, Quaternion.identity); //GameObject.Find("Lasers").transform);
         //adds laser to GameManager spawnedLaserList
+#if !UNITY_INCLUDE_TESTS
         GameManager.instance.spawnedLaserList.Add(laser);
+#endif
         //returns laser GameObject
         return laser;
     }
